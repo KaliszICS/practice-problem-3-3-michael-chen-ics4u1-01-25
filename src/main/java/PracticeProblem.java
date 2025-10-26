@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class PracticeProblem {
 
 	public static void main(String args[]) {
-		System.out.println(perms("null"));
+		System.out.println(permsUnique("hello").size());
 	}
 
 	public static void q1() {
@@ -53,11 +53,19 @@ public class PracticeProblem {
 	}
 
 	public static void permsUniqueHelper(String unused, ArrayList<String> uniquePermutations, String used) {
-		if (unused.strip() == "" && !uniquePermutations.contains(used)) {
+		if (unused.strip() == "") {
 			uniquePermutations.add(used);
 		}
 
+		String unique = "";
+
 		for (int i = 0; i < unused.length(); i++) {
+			if (unique.contains(String.valueOf(unused.charAt(i)))) {
+				continue;
+			}
+			if (!unique.contains(String.valueOf(unused.charAt(i)))) {
+				unique += String.valueOf(unused.charAt(i));
+			}
 			String usedLetters = used + unused.charAt(i);
 			String unusedLetters = unused.substring(0, i) + unused.substring(i + 1);
 			permsUniqueHelper(unusedLetters, uniquePermutations, usedLetters);
